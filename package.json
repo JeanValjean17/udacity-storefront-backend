@@ -9,7 +9,7 @@
     "build-ts": "npx tsc",
     "lint": "eslint src/**/*.ts",
     "prettier": "prettier --config .prettierrc src/**/*.ts --write",
-    "test": "SET NODE_ENV=test db-migrate --env test up && npm run build-ts && npm run jasmine && db-migrate --env test down",
+    "test": "db-migrate --env test up && npm run build-ts && npm run jasmine && db-migrate reset --env test",
     "build": "npm run prettier && npm run build-ts && npm run lint && npm run jasmine"
   },
   "author": "",

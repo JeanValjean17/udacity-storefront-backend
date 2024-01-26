@@ -1,0 +1,44 @@
+{
+  "name": "image-processing",
+  "version": "1.0.0",
+  "description": "udacity typescript backend project",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.ts",
+    "jasmine": "jasmine",
+    "build-ts": "npx tsc",
+    "lint": "eslint src/**/*.ts",
+    "prettier": "prettier --config .prettierrc src/**/*.ts --write",
+    "test": "SET NODE_ENV=test db-migrate --env test up && npm run build-ts && npm run jasmine && db-migrate --env test down",
+    "build": "npm run prettier && npm run build-ts && npm run lint && npm run jasmine"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.18",
+    "@types/filesystem": "^0.0.34",
+    "@types/jasmine": "^5.1.0",
+    "@types/node": "^20.8.7",
+    "@types/sharp": "^0.32.0",
+    "@types/supertest": "^2.0.14",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.51.0",
+    "jasmine": "^5.1.0",
+    "jasmine-spec-reporter": "^7.0.0",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.3",
+    "supertest": "^6.3.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@types/pg": "^7.14.7",
+    "db-migrate": "^0.11.14",
+    "db-migrate-pg": "^1.5.2",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "sharp": "^0.32.6"
+  }
+}

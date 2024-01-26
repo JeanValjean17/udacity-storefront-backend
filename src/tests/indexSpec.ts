@@ -8,10 +8,4 @@ describe('Test enpoint responses', () => {
     const response = await request.get('/api');
     expect(response.status).toBe(200);
   });
-  it('get the resize image api endpoint', async () => {
-    const response = await request.get(
-      '/api/imageresize?filename=bliss&width=50&height=50',
-    );
-    expect(response.status).toBe(200);
-  });
 });

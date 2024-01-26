@@ -1,16 +1,16 @@
 import client from '../database';
 
-export type Product = {
+export type Order = {
   id: number;
-  name: string;
-  price: string;
+  user_id: number;
+  status: string;
 };
 
-export class ProductStore {
-  async index(): Promise<Product[]> {
+export class OrderStore {
+  async index(): Promise<Order[]> {
     try {
       const conn = await client.connect();
-      const sql = 'SELECT * FROM products';
+      const sql = 'SELECT * FROM orders';
 
       const result = await conn.query(sql);
 
@@ -18,44 +18,44 @@ export class ProductStore {
 
       return result.rows;
     } catch (err: NodeJS.ErrnoException | unknown) {
-      throw new Error(`Could not get products. Error: ${err}`);
+      throw new Error(`Could not get orders. Error: ${err}`);
     }
   }
 
-  async show(id: string): Promise<Product> {
+  async show(id: string): Promise<Order> {
     try {
       const conn = await client.connect();
-      const sql = 'SELECT * FROM products WHERE id=($1)';
+      const sql = 'SELECT * FROM orders WHERE id=($1)';
 
       const result = await conn.query(sql);
       conn.release();
 
       return result.rows[0];
     } catch (err: NodeJS.ErrnoException | unknown) {
-      throw new Error(`Could not find product ${id}. Error: ${err}`);
+      throw new Error(`Could not find order ${id}. Error: ${err}`);
     }
   }
 
-  async create(p: Product): Promise<Product> {
+  async create(o: Order): Promise<Order> {
     try {
       const conn = await client.connect();
       const sql =
-        'INSERT INTO products (name, price) VALUES($1, $2) RETURNING *';
+        'INSERT INTO orders (user_id, status) VALUES($1, $2) RETURNING *';
 
-      const result = await conn.query(sql, [p.name, p.price]);
+      const result = await conn.query(sql, [o.user_id, o.status]);
       const prod = result.rows[0];
       conn.release();
 
       return prod;
     } catch (err: NodeJS.ErrnoException | unknown) {
-      throw new Error(`Could not add product ${p.name}. Error: ${err}`);
+      throw new Error(`Could not add order ${o.id}. Error: ${err}`);
     }
   }
 
-  async delete(id: string): Promise<Product> {
+  async delete(id: string): Promise<Order> {
     try {
       const conn = await client.connect();
-      const sql = 'DELETE FROM products WHERE id=($1)';
+      const sql = 'DELETE FROM orders WHERE id=($1)';
 
       const result = await conn.query(sql, [id]);
 
@@ -64,7 +64,7 @@ export class ProductStore {
 
       return prod;
     } catch (err: NodeJS.ErrnoException | unknown) {
-      throw new Error(`Could not delete product ${id}. Error: ${err}`);
+      throw new Error(`Could not delete order ${id}. Error: ${err}`);
     }
   }
 }

@@ -1,37 +1,37 @@
-import { ProductStore } from '../models/product';
+import { OrderStore } from '../models/orders';
 
-const store = new ProductStore();
+const store = new OrderStore();
 
-describe('Product Model', () => {
+describe('Order Model', () => {
   it('shoud have index method', () => {
     expect(store.index).toBeDefined();
   });
 
-  it('Insert new product', async () => {
+  it('Insert new order', async () => {
     const result = await store.create({
       id: 1,
-      name: 'MyProduct',
-      price: '2133',
+      user_id: 1,
+      status: 'complete',
     });
     expect(result).toEqual({
       id: 1,
-      name: 'MyProduct',
-      price: '2133',
+      user_id: 1,
+      status: 'complete',
     });
   });
 
-  it('Index method should return a list of products', async () => {
+  it('Index method should return a list of orders', async () => {
     const result = await store.index();
     expect(result).toEqual([
       {
         id: 1,
-        name: 'MyProduct',
-        price: '2133',
+        user_id: 1,
+        status: 'complete',
       },
     ]);
   });
 
-  it('delete product', async () => {
+  it('delete order', async () => {
     const result = await store.delete('1');
     expect(result).toBeUndefined();
   });

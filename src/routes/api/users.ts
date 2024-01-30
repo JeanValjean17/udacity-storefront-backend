@@ -56,7 +56,7 @@ users.post(
       res.json(error);
     }
 
-    res.status(200).send('users route ' + req.body);
+    return;
   },
 );
 

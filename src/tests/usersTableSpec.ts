@@ -17,7 +17,7 @@ describe('User Model', () => {
       lastname: 'Herrera',
       password: 'Test',
     });
-
+    console.log(result);
     expect(result).toEqual({
       id: 1,
       firstname: 'Jean',

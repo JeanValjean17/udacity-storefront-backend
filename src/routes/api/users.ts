@@ -10,19 +10,25 @@ const store = new UserStore();
 dotenv.config();
 const SECRET_KEY: jwt.Secret = process.env.TOKEN_SECRET as string;
 
-users.get('/users', verifyAuthToken, async (req: Request, res: Response) => {
-  try {
-    const users = await store.index();
-    res.json(users);
-  } catch (err: NodeJS.ErrnoException | unknown) {
-    const error = err as NodeJS.ErrnoException;
-    res.json(error);
-  }
-});
+users.get(
+  '/users',
+  verifyAuthToken,
+  express.json(),
+  async (req: Request, res: Response) => {
+    try {
+      const users = await store.index();
+      res.json(users);
+    } catch (err: NodeJS.ErrnoException | unknown) {
+      const error = err as NodeJS.ErrnoException;
+      res.json(error);
+    }
+  },
+);
 
 users.get(
   '/users/show/:id',
   verifyAuthToken,
+  express.json(),
   async (req: Request, res: Response) => {
     try {
       const users = await store.show(req.params.id);

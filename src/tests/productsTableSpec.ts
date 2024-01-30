@@ -31,6 +31,19 @@ describe('Product Model', () => {
     ]);
   });
 
+  it('Update inserted product',async () => {
+    const result = await store.update({
+      id: 1,
+      name: 'MyProduct',
+      price: '25',
+    });
+    expect(result).toEqual({
+      id: 1,
+      name: 'MyProduct',
+      price: '25',
+    });
+  })  
+
   it('delete product', async () => {
     const result = await store.delete('1');
     expect(result).toBeUndefined();

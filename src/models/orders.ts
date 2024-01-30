@@ -27,12 +27,28 @@ export class OrderStore {
       const conn = await client.connect();
       const sql = 'SELECT * FROM orders WHERE id=($1)';
 
-      const result = await conn.query(sql);
+      const result = await conn.query(sql, [id]);
       conn.release();
 
       return result.rows[0];
     } catch (err: NodeJS.ErrnoException | unknown) {
       throw new Error(`Could not find order ${id}. Error: ${err}`);
+    }
+  }
+
+  async update(o: Order): Promise<Order> {
+    try {
+      const conn = await client.connect();
+      const sql =
+        'UPDATE orders SET user_id = $1, status = $2 WHERE id=($3) RETURNING *';
+
+      const result = await conn.query(sql, [o.user_id, o.status, o.id]);
+      const prod = result.rows[0];
+      conn.release();
+
+      return prod;
+    } catch (err: NodeJS.ErrnoException | unknown) {
+      throw new Error(`Could not update order ${o.id}. Error: ${err}`);
     }
   }
 

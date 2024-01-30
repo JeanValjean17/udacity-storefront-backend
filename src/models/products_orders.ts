@@ -36,6 +36,27 @@ export class ProductsOrdersStore {
       throw new Error(`Could not find products_orders ${id}. Error: ${err}`);
     }
   }
+  async update(o: ProductsOrders): Promise<ProductsOrders> {
+    try {
+      const conn = await client.connect();
+      const sql =
+        'UPDATE products_orders SET product_id = $1, order_id = $2, quantity = $3 WHERE id=($4) RETURNING *';
+
+      const result = await conn.query(sql, [
+        o.product_id,
+        o.order_id,
+        o.quantity,
+        o.id
+      ]);
+
+      const prod = result.rows[0];
+      conn.release();
+
+      return prod;
+    } catch (err: NodeJS.ErrnoException | unknown) {
+      throw new Error(`Could not update products_orders ${o.id}. Error: ${err}`);
+    }
+  }
 
   async create(o: ProductsOrders): Promise<ProductsOrders> {
     try {

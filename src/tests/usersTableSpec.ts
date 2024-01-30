@@ -34,6 +34,21 @@ describe('User Model', () => {
     ]);
   });
 
+  it('Update inserted user',async () => {
+    const result = await store.update({
+      id: 1,
+      firstname: 'Carlos',
+      lastname: 'Perez',
+      password: 'TestPassword',
+    });
+    expect(result).toEqual({
+      id: 1,
+      firstname: 'Carlos',
+      lastname: 'Perez',
+      password: 'TestPassword',
+    });
+  })  
+
   it('delete user', async () => {
     const result = await store.delete('1');
     expect(result).toBeUndefined();

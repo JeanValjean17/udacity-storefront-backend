@@ -34,6 +34,22 @@ describe('Products Order Model', () => {
     ]);
   });
 
+  it('Update inserted product order',async () => {
+    const result = await store.update({
+      id: 1,
+      product_id: 1,
+      order_id: 1,
+      quantity: '52',
+    });
+    expect(result).toEqual({
+      id: 1,
+      product_id: 1,
+      order_id: 1,
+      quantity: '52',
+    });
+  })  
+  
+
   it('delete products order', async () => {
     const result = await store.delete('1');
     expect(result).toBeUndefined();

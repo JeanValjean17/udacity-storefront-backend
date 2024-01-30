@@ -13,7 +13,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Users
 - Index [token required] '/users' [GET]
-- Show [token required] '/users/:id' [GET]
+- Show [token required] '/users/show/:id' [GET]
 - Create N[token required] '/users' [POST]
 
 #### Orders
@@ -22,7 +22,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## Data Shapes
 #### Product 
--  id
+- id
 - name
 - price
 - [OPTIONAL] category

@@ -17,9 +17,7 @@ describe('Test enpoint responses', () => {
       lastname: 'Jenkins',
       password: 'TestPassword',
     };
-    const response = await request
-      .post('/api/users/create')
-      .send(payload);
+    const response = await request.post('/api/users/create').send(payload);
     token = response.body.token;
     console.log(token);
     expect(response.status).toBe(200);

@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import verifyAuthToken from '../../middleware/jwtAuthChecker';
 import { User, UserStore } from '../../models/users';
+
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
@@ -46,10 +47,9 @@ users.post(
     };
 
     try {
-      //still need to encrypt with bencrypt
       const newUser = await store.create(user);
       const token = jwt.sign({ user: newUser }, SECRET_KEY);
-      res.json(token);
+      res.json({ token: token });
     } catch (err: NodeJS.ErrnoException | unknown) {
       const error = err as NodeJS.ErrnoException;
       res.status(400);

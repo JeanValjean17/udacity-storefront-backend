@@ -31,7 +31,7 @@ describe('Product Model', () => {
     ]);
   });
 
-  it('Update inserted product',async () => {
+  it('Update inserted product', async () => {
     const result = await store.update({
       id: 1,
       name: 'MyProduct',
@@ -42,7 +42,7 @@ describe('Product Model', () => {
       name: 'MyProduct',
       price: '25',
     });
-  })  
+  });
 
   it('delete product', async () => {
     const result = await store.delete('1');

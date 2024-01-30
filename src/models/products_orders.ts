@@ -46,7 +46,7 @@ export class ProductsOrdersStore {
         o.product_id,
         o.order_id,
         o.quantity,
-        o.id
+        o.id,
       ]);
 
       const prod = result.rows[0];
@@ -54,7 +54,9 @@ export class ProductsOrdersStore {
 
       return prod;
     } catch (err: NodeJS.ErrnoException | unknown) {
-      throw new Error(`Could not update products_orders ${o.id}. Error: ${err}`);
+      throw new Error(
+        `Could not update products_orders ${o.id}. Error: ${err}`,
+      );
     }
   }
 

@@ -31,7 +31,7 @@ describe('Order Model', () => {
     ]);
   });
 
-  it('Update inserted order',async () => {
+  it('Update inserted order', async () => {
     const result = await store.update({
       id: 1,
       user_id: 1,
@@ -42,7 +42,7 @@ describe('Order Model', () => {
       user_id: 1,
       status: 'active',
     });
-  })  
+  });
 
   it('delete order', async () => {
     const result = await store.delete('1');

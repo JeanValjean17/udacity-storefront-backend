@@ -1,4 +1,10 @@
 import client from '../database';
+import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const PEPPER: string = process.env.BCRYPT_PASSWORD as string;
+const SALT_ROUNDS: string = process.env.SALT_ROUNDS as string;
 
 export type User = {
   id: number;
@@ -43,10 +49,11 @@ export class UserStore {
       const sql =
         'UPDATE users SET firstName = $1, lastName = $2, password = $3 WHERE id=($4) RETURNING *';
 
+      const hash = bcrypt.hashSync(u.password + PEPPER, parseInt(SALT_ROUNDS));
       const result = await conn.query(sql, [
         u.firstname,
         u.lastname,
-        u.password,
+        hash,
         u.id,
       ]);
       const prod = result.rows[0];
@@ -64,11 +71,8 @@ export class UserStore {
       const sql =
         'INSERT INTO users (firstName, lastName, password) VALUES($1, $2, $3) RETURNING *';
 
-      const result = await conn.query(sql, [
-        u.firstname,
-        u.lastname,
-        u.password,
-      ]);
+      const hash = bcrypt.hashSync(u.password + PEPPER, parseInt(SALT_ROUNDS));
+      const result = await conn.query(sql, [u.firstname, u.lastname, hash]);
       const prod = result.rows[0];
       conn.release();
 

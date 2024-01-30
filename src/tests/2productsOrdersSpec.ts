@@ -34,7 +34,7 @@ describe('Products Order Model', () => {
     ]);
   });
 
-  it('Update inserted product order',async () => {
+  it('Update inserted product order', async () => {
     const result = await store.update({
       id: 1,
       product_id: 1,
@@ -47,8 +47,7 @@ describe('Products Order Model', () => {
       order_id: 1,
       quantity: '52',
     });
-  })  
-  
+  });
 
   it('delete products order', async () => {
     const result = await store.delete('1');

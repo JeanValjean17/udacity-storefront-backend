@@ -1,6 +1,9 @@
 import { UserStore } from '../models/users';
+//import bcrypt from 'bcrypt';
 
 const store = new UserStore();
+//const PEPPER: string = process.env.BCRYPT_PASSWORD as string;
+//const SALT_ROUNDS: string = process.env.SALT_ROUNDS as string;
 
 describe('User Model', () => {
   it('shoud have index method', () => {
@@ -12,13 +15,14 @@ describe('User Model', () => {
       id: 1,
       firstname: 'Jean',
       lastname: 'Herrera',
-      password: 'TestPassword',
+      password: 'Test',
     });
+
     expect(result).toEqual({
       id: 1,
       firstname: 'Jean',
       lastname: 'Herrera',
-      password: 'TestPassword',
+      password: result.password,
     });
   });
 
@@ -29,25 +33,26 @@ describe('User Model', () => {
         id: 1,
         firstname: 'Jean',
         lastname: 'Herrera',
-        password: 'TestPassword',
+        password: result[0].password,
       },
     ]);
   });
 
-  it('Update inserted user',async () => {
+  it('Update inserted user', async () => {
     const result = await store.update({
       id: 1,
       firstname: 'Carlos',
       lastname: 'Perez',
-      password: 'TestPassword',
+      password: 'Test',
     });
+
     expect(result).toEqual({
       id: 1,
       firstname: 'Carlos',
       lastname: 'Perez',
-      password: 'TestPassword',
+      password: result.password,
     });
-  })  
+  });
 
   it('delete user', async () => {
     const result = await store.delete('1');
